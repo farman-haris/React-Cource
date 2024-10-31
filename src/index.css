@@ -13,3 +13,9 @@ html, body{
 body{
   background-color: #000;
 }
+
+button{
+  background-color: cyan;
+  padding: 5px 10px;
+  color: black;
+}
