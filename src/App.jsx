@@ -1,10 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const App = () => {
+
+  const SubmitHandler = (e)=>{
+    e.preventDefault()
+
+    console.log("submitted");
+    
+  }
   return (
     <div>
-      <h1>My Name is Chicky</h1>
-      <h1 className='text-5xl bg-red-500 text-black'>My Name is Chicky Chicky Chikcy</h1>
+      <form onSubmit={(e)=>{
+        SubmitHandler(e)
+      }}>
+        <input className='px-4 py-3 text-xl m-5 bg-white text-black' type="text" placeholder='Enter your name' />
+        <button className='px-4 py-3 text-xl font-semibold bg-emerald-600 rounded'>Submit</button>
+      </form>
     </div>
   )
 }
