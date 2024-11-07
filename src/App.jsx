@@ -1,65 +1,33 @@
-import React from "react";
-import Cards from "./components/Cards";
+import axios from 'axios'
+import React from 'react'
+import { useState } from 'react'
 
 const App = () => {
-  const users = [
-    {
-      name: "Alice Johnson",
-      age: 29,
-      city: "New York",
-      profession: "Graphic Designer",
-      profilePhoto: "https://example.com/photos/alice.jpg",
-    },
-    {
-      name: "Mark Chen",
-      age: 35,
-      city: "San Francisco",
-      profession: "Software Engineer",
-      profilePhoto: "https://example.com/photos/mark.jpg",
-    },
-    {
-      name: "Sara Lee",
-      age: 24,
-      city: "Chicago",
-      profession: "Marketing Specialist",
-      profilePhoto: "https://example.com/photos/sara.jpg",
-    },
-    {
-      name: "David Kim",
-      age: 41,
-      city: "Los Angeles",
-      profession: "Product Manager",
-      profilePhoto: "https://example.com/photos/david.jpg",
-    },
-    {
-      name: "Emma Garcia",
-      age: 30,
-      city: "Miami",
-      profession: "UX Designer",
-      profilePhoto: "https://example.com/photos/emma.jpg",
-    },
-  ];
+
+  const [data, setData] = useState([])
+
+  const getData = async()=> {
+    const response = await axios.get('https://picsum.photos/v2/list')
+
+    setData(response.data)
+    console.log(data[0].download_url);
+  }
 
   return (
-    <>
-      <div>
-        <div className="p-10">
-          {users.map(function (elem, idx) {
-            return (
-              <Cards
-                key={idx}
-                username={elem.name}
-                age={elem.age}
-                city={elem.city}
-                photo={elem.profilePhoto}
-                proff={elem.profession}
-              />
-            );
-          })}
-        </div>
+    <div className='p-10'>
+      <button onClick={getData} className='bg-teal-800 text-white font-semibold text-2xl px-6 py-4 rounded active:scale-90'>Get Data</button>
+      <div className='p-5 mt-5 bg-gray-900'>
+        {
+          data.map(function (elem, idx) {
+            return <div key={idx} className='bg-gray-300 text-black flex items-center justify-between w-full px-7 py-6 rounded mb-3'>
+              <img className='h-40' src={elem.download_url} alt="" />
+              <h1>{elem.author}</h1>
+            </div>
+          })
+        }
       </div>
-    </>
-  );
-};
+    </div>
+  )
+}
 
-export default App;
+export default App
